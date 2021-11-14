@@ -1,0 +1,96 @@
+<% layout('layouts/boilerplate') %>
+
+<div id="input-data" data-inputId="<%= inputId %>" data-buttonId="<%= buttonId %>" data-text="<%= text %>"></div>
+
+<% if(question != ""){ %> 
+<h2>Ovo je tvoje pitanje: <%= question %> </h2>
+<% } else { %>
+    <h2>Kaj nisi nikvo pitanje postavil?! Vrni se i postavi pitanje neko</h2>
+    <% } %>  
+
+
+<ul id="list"></ul>
+
+ 
+
+  
+  
+ <% if(answerType == "place" || answerType == "event" || answerType == "person" ){ %>
+    <h4 id="desc-text">Sad dodaj  <%= text === "osobu" ? "osobe koje" : "" %><%= text === "mjesto" ? "mjesta koja" : "" %><%= text === "događaj" ? "događaje koje" : ""  %> želiš dodati u izbor  </h4>
+    <input id="<%= inputId %>" type="text">
+    <button id="<%= buttonId %>">Dodaj <%= text %></button>
+    <button id="get-answer" style="display: none;">Saznaj odgovor</button>
+    <% } %>  
+
+<% if(answerType == "yesNo"){ %> 
+    <% yesNoArr = ["DA", "NE"] %>
+  
+<h3>Evo ti odgovor: <%=  yesNoArr[Math.floor(Math.random() * yesNoArr.length)] %> </h3>
+<% } %> 
+
+<!-- Scripts --> 
+
+
+
+
+<script>
+
+    /* Get values from div */
+    let inputDataDivValues = document.getElementById("input-data").dataset
+    
+    let inputId = inputDataDivValues.inputid;
+    let buttonId = inputDataDivValues.buttonid;
+    let text = inputDataDivValues.text;
+
+    let addPersonButton = document.getElementById(buttonId);
+    addPersonButton.addEventListener("click", addPerson)
+    let input = document.getElementById(inputId)
+    let namesArr = [];
+     function addPerson () {
+        
+       let newLi = document.createElement("li")
+        newLi.innerHTML = input.value;
+        let namesList = document.getElementById("list")
+        namesList.appendChild(newLi)
+        namesArr.push(input.value)
+        input.value = "";
+        if(namesArr.length > 1){
+            document.getElementById("get-answer").style.display = "block"
+            document.getElementById("get-answer").style.marginTop = "20px"
+            document.getElementById("get-answer").style.padding = "20px"
+            document.getElementById("desc-text").innerHTML = "Sad stisni 'SAZNAJ ODGOVOR' ili nastavi dodavati"
+
+        }
+}
+
+// Get the input field
+
+
+// Execute a function when the user releases a key on the keyboard
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById(buttonId).click();
+  }
+});
+
+
+/* Get answer button function */
+
+let getAnswerButton = document.getElementById("get-answer");
+
+
+const getAnswerFunc = () => {
+    
+    const random = Math.floor(Math.random() * namesArr.length);
+alert(`Evo ti odgovor: ${namesArr[random]}`);
+}
+
+getAnswerButton.addEventListener("click", getAnswerFunc)
+
+</script>
+
+
