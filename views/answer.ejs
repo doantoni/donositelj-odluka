@@ -3,9 +3,9 @@
 <div id="input-data" data-inputId="<%= inputId %>" data-buttonId="<%= buttonId %>" data-text="<%= text %>"></div>
 
 <% if(question != ""){ %> 
-<h2>Ovo je tvoje pitanje: <%= question %> </h2>
+<h3>Ovo je tvoje pitanje: <i style="font-weight: 400;"><%= question %></i> </h3>
 <% } else { %>
-    <h2>Kaj nisi nikvo pitanje postavil?! Vrni se i postavi pitanje neko</h2>
+    <h3>Kaj nisi nikvo pitanje postavil?! <br> Vrni se i postavi pitanje neko</h3>
     <% } %>  
 
 
@@ -16,10 +16,14 @@
   
   
  <% if(answerType == "place" || answerType == "event" || answerType == "person" ){ %>
-    <h4 id="desc-text">Sad dodaj  <%= text === "osobu" ? "osobe koje" : "" %><%= text === "mjesto" ? "mjesta koja" : "" %><%= text === "događaj" ? "događaje koje" : ""  %> želiš dodati u izbor  </h4>
-    <input id="<%= inputId %>" type="text">
-    <button id="<%= buttonId %>">Dodaj <%= text %></button>
+  <div id="input-all">
+    <h3 id="desc-text">Sad dodaj  <%= text === "osobu" ? "osobe koje" : "" %><%= text === "mjesto" ? "mjesta koja" : "" %><%= text === "događaj" ? "događaje koje" : ""  %> želiš dodati u izbor  </h3>
+    <div class="input-choice-group">
+    <input class="input-choice" id="<%= inputId %>" type="text">
+    <button class="input-choice-btn" id="<%= buttonId %>">Dodaj <%= text %></button>
+  </div>
     <button id="get-answer" style="display: none;">Saznaj odgovor</button>
+  </div>
     <% } %>  
 
 <% if(answerType == "yesNo"){ %> 
@@ -56,8 +60,8 @@
         input.value = "";
         if(namesArr.length > 1){
             document.getElementById("get-answer").style.display = "block"
-            document.getElementById("get-answer").style.marginTop = "20px"
-            document.getElementById("get-answer").style.padding = "20px"
+          
+            
             document.getElementById("desc-text").innerHTML = "Sad stisni 'SAZNAJ ODGOVOR' ili nastavi dodavati"
 
         }

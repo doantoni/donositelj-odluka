@@ -1,7 +1,9 @@
 <% layout('layouts/boilerplate') %>
-<h1>Tu napiši što želiš odlučiti</h1>
+<h4>Tu dolje napiši što želiš odlučiti</h4>
 <form action="/odgovor" method="POST">
-<input class="input" name="question" type="text">
+<textarea class="input" name="question" type="text"></textarea>
+
+<div class="inputs">
 <label for="answerType">Koji tip odgovora želiš:</label>
 
 <select name="answerType" id="answerType">
@@ -10,5 +12,7 @@
   <option value="place">Mjesto</option>
   <option value="event">Događaj</option>
 </select>
+
 <button>Daj mi odgovor</button>
+</div>
 </form>
