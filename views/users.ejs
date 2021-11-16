@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate') %>
+
+<h3>Članovi "Tribanan"</h3>
+<ul id="list">
+    <% for(user of allUsers){ %>
+      <div id="input-data" data-id="<%= user._id %>"></div>
+   
+        <li> <button onclick="getElementById('myForm<%= user._id%>').style.display = 'block'" class="open-button">Detaljnije</button> <%= user.firstName %> <%= user.lastName  %> <a href="/user/delete/<%= user._id %>"><i class="fas fa-trash"></i></a></li>
+        <div  class="form-popup" id="myForm<%= user._id%>">
+            <form  action="/user/info/<%= user._id %>" method="post" class="form-container">
+              <h1>Login</h1>
+              <input type="hidden" name="firstName" value="<%= user.firstName %>">
+              <input type="hidden" name="lastName" value="<%= user.lastName %>">
+             <textarea name="info" id="info<%= user._id%>" cols="30" rows="10"><%= user.info %></textarea>
+              <button type="submit" class="btn">Spremi</button>
+              <button onclick="getElementById('myForm<%= user._id%>').style.display = 'none'" type="button" class="btn cancel">Zapri</button>
+            </form>
+          </div>
+        
+        <% } %>  
+</ul>
+
+<h3>Dodaj korisnika u bazu</h3>
+
+
+
+    <form action="/users" method="POST" class="input-choice-group">
+        <div class="flex-column">
+<label for="firstName">Ime korisnika</label>
+<input id="firstName" type="text" name="firstName">
+<label for="lastName">Prezime korisnika</label>
+<input id="lastName" type="text" name="lastName">
+<button type="submit">Dodaj</button>
+</div>
+</form>
+
+
+
+
+ 
